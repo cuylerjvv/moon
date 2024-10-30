@@ -2,8 +2,8 @@
   import { supabase } from '$lib/supabaseClient.ts';
   let creating_new_user = false;
 
-  export let data;
-  console.log(JSON.stringify(data.users, null, 2));
+  // export let data;
+  // console.log(JSON.stringify(data.users, null, 2));
 
   const createUserUtil = {
     openModal() {
@@ -14,15 +14,9 @@
       creating_new_user = false;
     },
 
-    async createUser() {
-      const { data } = await supabase.from("users").update( {
-          created_at: new Date(),
-          name: "Annelma",
-          surname: "Kellerman",
-      })
+    // async createUser() {
 
-      console.log(JSON.stringify(data, null, 2));
-    },
+    // },
   };
 </script>
 
@@ -34,24 +28,27 @@
 
   {#if creating_new_user}
     <div>
-      <form method="POST">
+      <form method="POST" >
         <label>
           Name
-          <input name="name" type="text" />
+          <input id="name" name="name" type="text" />
         </label>
         <label>
           Surname
-          <input name="surname" type="text" />
+          <input id="surname" name="surname" type="text" />
         </label>
-        <button on:click={createUserUtil.closeModal}>Close</button>
-        <button on:click={createUserUtil.createUser}>Create</button>
+        <!-- <button on:click={createUserUtil.createUser}>Create</button> -->
+        <button type="submit" formaction="?/login">Create</button>
+        <button formaction="?/close">Close</button>
       </form>
     </div>
   {/if}
 
   <ul>
-    {#each data.users as user}
+    <!-- {#each data.users as user}
       <li>{user.name}</li>
-    {/each}
+      <li>{user.surname}</li>
+      <li>{user.created_at}</li>
+    {/each} -->
   </ul>
 </div>
